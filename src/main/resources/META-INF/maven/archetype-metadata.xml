@@ -35,9 +35,9 @@
 		</fileSet>
 	</fileSets>
 
-	<requiredProperties>
+<!--	<requiredProperties>
 		<requiredProperty key="groupId">
 			<defaultValue>com.congitationsoft</defaultValue>
 		</requiredProperty>
-	</requiredProperties>
+	</requiredProperties>-->
 </archetype-descriptor>
