@@ -1,2 +1,3 @@
-# maven-common-springboot
-自定义通用springboot模板
+# 项目初始化( Project Initialization )
+# 项目名（Project Name）
+## maven-common-springboot
