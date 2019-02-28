@@ -9,14 +9,28 @@ import java.util.Objects;
  * @description Demo
  */
 public class Demo {
+	private String id;
 	private String name;
 
 	public Demo() {
 		this.name = name;
 	}
 
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
@@ -27,19 +41,22 @@ public class Demo {
 		if (!(o instanceof Demo)) {
 			return false;
 		}
+
 		Demo demo = (Demo) o;
-		return Objects.equals(getName(), demo.getName());
+		return Objects.equals(getId(), demo.getId()) &&
+				Objects.equals(getName(), demo.getName());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getName());
+		return Objects.hash(getId(), getName());
 	}
 
 	@Override
 	public String toString() {
 		return "Demo{" +
-				"name='" + name + '\'' +
+				"id='" + id + '\'' +
+				", name='" + name + '\'' +
 				'}';
 	}
 }

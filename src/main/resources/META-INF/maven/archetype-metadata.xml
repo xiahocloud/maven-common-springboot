@@ -5,6 +5,7 @@
 			<directory>src/main/java</directory>
 			<includes>
 				<include>**/*.java</include>
+				<include>**/*.xml</include>
 			</includes>
 		</fileSet>
 
@@ -16,12 +17,12 @@
 				<include>**/*.yml</include>
 			</includes>
 		</fileSet>
-		<fileSet filtered="true" packaged="false">
-			<directory>src/main/resources/static</directory>
-		</fileSet>
 
 		<fileSet filtered="true" packaged="false">
 			<directory>src/main/resources/template</directory>
+		</fileSet>
+		<fileSet filtered="true" packaged="false">
+			<directory>src/main/resources/static</directory>
 		</fileSet>
 
 		<fileSet filtered="true" packaged="true">
