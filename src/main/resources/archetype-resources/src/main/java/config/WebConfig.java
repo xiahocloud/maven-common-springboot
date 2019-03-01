@@ -1,16 +1,26 @@
-package ${package}.config;
+package $
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;{package}.config;
+
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import freemarker.template.TemplateException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerView;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
 
 /**
  * @author Andy
@@ -72,7 +82,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 
-		registry.enableContentNegotiation(new MappingJackson2JsonView());
+		/*registry.enableContentNegotiation(new MappingJackson2JsonView());*/
 		registry.freeMarker().cache(false);
 
 	}
@@ -81,13 +91,13 @@ public class WebConfig implements WebMvcConfigurer {
 	 * freemarker视图解析器
 	 */
 	@Bean
-	public ViewResolver viewResolver(){
+	public ViewResolver viewResolver() {
 		FreeMarkerViewResolver viewResolver = new FreeMarkerViewResolver();
 		viewResolver.setViewClass(FreeMarkerView.class);
 		viewResolver.setCache(false);
 		viewResolver.setPrefix("");
 		viewResolver.setSuffix(".ftl");
-		viewResolver.setContentType("text/html;charset=utf-8");
+		viewResolver.setContentType("text/html;charset=UTF-8");
 		viewResolver.setExposeRequestAttributes(true);
 		viewResolver.setExposeSessionAttributes(true);
 		viewResolver.setExposeSpringMacroHelpers(true);
@@ -110,5 +120,54 @@ public class WebConfig implements WebMvcConfigurer {
 		configurer.setTemplateLoaderPath("classpath:/template/freemarker");
 		configurer.setDefaultEncoding("UTF-8");
 		return configurer;
+	}
+
+
+	/**
+	 * Method Description: Created by whx
+	 * 〈 Http消息转换器 〉
+	 *
+	 * @return org.springframework.http.converter.HttpMessageConverter<java.lang.String>
+	 * @throws:
+	 * @date 03/01/2019 10:11
+	 */
+	@Bean
+	public HttpMessageConverter<String> responseBodyConverter() {
+
+		HttpMessageConverter converter = new StringHttpMessageConverter(
+				Charset.forName("UTF-8"));
+		return converter;
+	}
+
+	public HttpMessageConverter<?> responseBodyFastJsonConverter() {
+		//1、定义一个convert转换消息的对象
+		FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
+		//2、添加fastjson的配置信息
+		FastJsonConfig fastJsonConfig = new FastJsonConfig();
+		fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
+		//3、在convert中添加配置信息
+		fastConverter.setFastJsonConfig(fastJsonConfig);
+		return fastConverter;
+
+	}
+
+	/**
+	 * Method Description: Created by whx
+	 * 〈修改HttpMessageConverter默认配置〉
+	 *
+	 * @param converters 转换器列表
+	 * @return void
+	 * @throws
+	 * @date 03/01/2019 10:15
+	 */
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+
+
+		// 启用上述配置
+		converters.add(responseBodyConverter());
+		// 启用fastJson作为消息转换内容
+		converters.add(responseBodyFastJsonConverter());
+
 	}
 }
