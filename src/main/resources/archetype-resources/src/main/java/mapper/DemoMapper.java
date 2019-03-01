@@ -1,8 +1,9 @@
 package ${package}.mapper;
 
 import ${package}.pojo.Demo;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author Andy
@@ -10,6 +11,7 @@ import java.util.List;
  * @date 02/28/2019 17:21
  * @description Mapper
  */
+@Mapper
 public interface DemoMapper {
 	/**
 	 * Method Description: Created by whx
@@ -31,7 +33,7 @@ public interface DemoMapper {
 	 * @throws:
 	 * @date 02/28/2019 16:30
 	 */
-	Demo readById(String id);
+	Demo readById(@Param("id") String id);
 
 	/**
 	 * Method Description: Created by whx
@@ -53,7 +55,7 @@ public interface DemoMapper {
 	 * @throws:
 	 * @date 02/28/2019 16:31
 	 */
-	int deleteById(String id);
+	int deleteById(@Param("id") String id);
 
 	/**
 	 * Method Description: Created by whx

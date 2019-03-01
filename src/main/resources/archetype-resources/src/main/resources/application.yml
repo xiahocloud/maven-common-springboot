@@ -1,9 +1,16 @@
 server:
   servlet:
     context-path: /
+  tomcat:
+    uri-encoding: UTF-8
 spring:
   profiles:
     active: dev
   servlet:
     multipart:
       max-file-size: -1 #文件上传大小无限制
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true

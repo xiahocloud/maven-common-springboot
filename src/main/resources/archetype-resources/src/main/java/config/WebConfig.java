@@ -1,8 +1,8 @@
-package $
+package ${package}.config;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.List;{package}.config;
+import java.util.List;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
@@ -17,10 +17,6 @@ import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerView;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
-
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.List;
 
 /**
  * @author Andy
