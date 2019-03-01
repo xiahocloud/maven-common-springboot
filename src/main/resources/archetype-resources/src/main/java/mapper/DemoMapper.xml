@@ -3,7 +3,8 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${package}.mapper.DemoMapper">
 	<resultMap id="demoMap" type="Demo">
-		<result property="uuid" column="uuid" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result property="id" column="uuid" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result property="name" column="name" jdbcType="VARCHAR" javaType="java.lang.String"/>
 	</resultMap>
 
 
@@ -16,7 +17,7 @@
 			fetchSize="256"
 			statementType="PREPARED"
 			resultSetType="FORWARD_ONLY">
-
+		SELECT * from t_demo WHERE uuid = #{id}
 	</select>
 	<select id="list"
 	        resultMap="demoMap"
@@ -26,7 +27,7 @@
 	        fetchSize="256"
 	        statementType="PREPARED"
 	        resultSetType="FORWARD_ONLY">
-
+		SELECT * FROM t_demo
 	</select>
 	<update
 			id="update"
@@ -34,6 +35,7 @@
 			flushCache="true"
 			statementType="PREPARED"
 			timeout="20">
+
 	</update>
 	<insert
 			id="create"
@@ -49,6 +51,5 @@
 			flushCache="true"
 			statementType="PREPARED"
 			timeout="20">
-
 	</delete>
 </mapper>

@@ -1,11 +1,14 @@
 package ${package}.config;
+
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -36,7 +39,8 @@ public class MasterDataSourceConfig {
 	 * @return com.alibaba.druid.pool.DruidDataSource
 	 * @date 03/01/2019 11:01
 	 */
-	@Bean
+	@Primary
+	@Bean(name = "masterDatasource")
 	public DruidDataSource dataSource() {
 		DruidDataSource ds = new DruidDataSource();
 		ds.setUrl(url);
@@ -46,24 +50,31 @@ public class MasterDataSourceConfig {
 		return ds;
 	}
 
-	@Bean
-	public DataSourceTransactionManager dataSourceTransactionManager() {
-		return new DataSourceTransactionManager(dataSource());
-	}
-
-	@Bean
-	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-		return new SqlSessionTemplate(sqlSessionFactory);
-	}
-
-	@Bean
+	@Primary
+	@Bean(name = "masterSqlSessionFactory")
+	@ConditionalOnBean(name = "masterDatasource")
 	public SqlSessionFactory sqlSessionFactory() throws Exception {
 		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource());
 		String packageName = "${package}";
-		packageName.replaceAll(".", "/");
+		packageName.replace(".", "/");
 		sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:" + packageName + "/mapper/*.xml"));
-		sessionFactory.setTypeAliasesPackage("${package}");
+		sessionFactory.setTypeAliasesPackage("${package}.pojo");
+		sessionFactory.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
 		return sessionFactory.getObject();
+	}
+
+	@Primary
+	@Bean(name = "masterSqlSessionTemplate")
+	@ConditionalOnBean(name = "masterSqlSessionFactory")
+	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+		return new SqlSessionTemplate(sqlSessionFactory);
+	}
+
+	@Primary
+	@Bean(name = "masterDataSourceTransactionManager")
+	@ConditionalOnBean(name = "masterDatasource")
+	public DataSourceTransactionManager dataSourceTransactionManager() {
+		return new DataSourceTransactionManager(dataSource());
 	}
 }

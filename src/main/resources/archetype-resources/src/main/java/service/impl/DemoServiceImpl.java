@@ -5,6 +5,7 @@ import ${package}.pojo.Demo;
 import ${package}.service.DemoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 @Service
 public class DemoServiceImpl implements DemoService {
 
+	@Autowired
 	private DemoMapper demoMapper;
 
 	@Override

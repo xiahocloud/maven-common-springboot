@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/db_common_springboot?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false
+      url: jdbc:mysql://localhost:3306/db_common_springboot?useUnicode=TRUE&characterEncoding=utf-8&useSSL=FALSE&serverTimezone=GMT%2B8
       username: root
       password: root
       driver-class-name: com.mysql.cj.jdbc.Driver

@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <archetype-descriptor name="maven-common-springboot">
 	<fileSets>
+		<fileSet filtered="false" packaged="false">
+			<directory>lib</directory>
+			<includes>
+				<include>**/*.jar</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false" packaged="false">
+			<directory>sql</directory>
+			<includes>
+				<include>**/*.sql</include>
+			</includes>
+		</fileSet>
+
 		<fileSet filtered="true" packaged="true">
 			<directory>src/main/java</directory>
 			<includes>
