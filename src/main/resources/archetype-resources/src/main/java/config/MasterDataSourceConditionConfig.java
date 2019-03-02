@@ -14,16 +14,16 @@ public class MasterDataSourceConditionConfig implements Condition {
 
 	@Override
 	public boolean matches(ConditionContext context, AnnotatedTypeMetadata arg1) {
-		if (!context.getEnvironment().containsProperty("spring.datasource.master.url")) {
+		if (!context.getEnvironment().containsProperty("master.datasource.druid.url")) {
 			return false;
 		}
-		if (!context.getEnvironment().containsProperty("spring.datasource.master.driverClassName")) {
+		if (!context.getEnvironment().containsProperty("master.datasource.druid.driverClassName")) {
 			return false;
 		}
-		if (!context.getEnvironment().containsProperty("spring.datasource.master.username")) {
+		if (!context.getEnvironment().containsProperty("master.datasource.druid.username")) {
 			return false;
 		}
-		if (!context.getEnvironment().containsProperty("spring.datasource.master.password")) {
+		if (!context.getEnvironment().containsProperty("master.datasource.druid.password")) {
 			return false;
 		}
 		String url = context.getEnvironment().getProperty("spring.datasource.master.url");
