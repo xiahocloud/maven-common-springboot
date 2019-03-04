@@ -32,14 +32,13 @@
 	</parent>
 
 	<dependencies>
-		<!--<dependency>
-	<groupId>***</groupId>
-	<artifactId>***</artifactId>
-	<scope>system</scope>
-	<systemPath>${project.basedir}/lib/***.jar</systemPath>
-	<version>***</version>
-</dependency>
--->
+		<dependency>
+			<groupId>com.oracle.jdbc</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/ojdbc6-11.2.0.4.jar</systemPath>
+			<version>11.2.0.4</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
