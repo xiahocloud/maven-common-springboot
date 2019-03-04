@@ -4,9 +4,8 @@
 	<groupId>${groupId}</groupId>
 	<artifactId>${artifactId}</artifactId>
 	<version>${version}</version>
-
 	<name>${artifactId}</name>
-
+	<description>${artifactId}</description>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -33,6 +32,14 @@
 	</parent>
 
 	<dependencies>
+		<!--<dependency>
+	<groupId>***</groupId>
+	<artifactId>***</artifactId>
+	<scope>system</scope>
+	<systemPath>${project.basedir}/lib/***.jar</systemPath>
+	<version>***</version>
+</dependency>
+-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -118,21 +125,19 @@
 					<include>**/*.*</include>
 				</includes>
 			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath>${project.build.directory}/${project.artifactId}/classes</targetPath>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>boot</directory>
+				<targetPath>${project.build.directory}/${project.artifactId}</targetPath>
+				<filtering>true</filtering>
+			</resource>
 		</resources>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-archetype-plugin</artifactId>
-				<version>2.2</version>
-			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<configuration>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
+		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -141,14 +146,88 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 
-			<plugin>
+			<!--<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<outputDirectory>${basedir}</outputDirectory>
+					<fork>true</fork>
+					<jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
+					<mainClass>${package}.Application</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+
+			</plugin>-->
+
+			<!-- 打包 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<classesDirectory>target/classes</classesDirectory>
+					<archive>
+						<manifest>
+							<useUniqueVersions>false</useUniqueVersions>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>${package}.Application</mainClass>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>
+								lib/ojdbc6-11.2.0.4.jar
+							</Class-Path>
+						</manifestEntries>
+					</archive>
+					<!--过滤掉不希望包含在jar中的文件 -->
+					<excludes>
+						<exclude>*.properties</exclude>
+						<exclude>*.yml</exclude>
+						<exclude>*.xml</exclude>
+						<exclude>static/</exclude>
+						<exclude>template/</exclude>
+						<exclude>spring/</exclude>
+					</excludes>
+					<outputDirectory>
+						${project.build.directory}/${project.artifactId}
+					</outputDirectory>
+				</configuration>
+			</plugin>
+
+			<!-- 拷贝依赖的jar包 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<type>jar</type>
+							<includeTypes>jar</includeTypes>
+							<outputDirectory>
+								${project.build.directory}/${project.artifactId}/lib
+							</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 		</plugins>
