@@ -6,5 +6,6 @@
 </head>
 <body>
 This Is Demo Page（这里是示例页面）
+<a href="/demo">Demo</a>
 </body>
 </html>

@@ -6,6 +6,6 @@ master:
       url: jdbc:mysql://localhost:3306/db_common_springboot?useUnicode=TRUE&characterEncoding=utf-8&useSSL=FALSE&serverTimezone=GMT%2B8
       username: root
       password: root
-      driverClassName: com.mysql.cj.jdbc.Driver
+      driverClassName: com.mysql.jdbc.Driver
       #max-active: 10
       #initial-size: 10
