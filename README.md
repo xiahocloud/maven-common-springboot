@@ -8,3 +8,9 @@
 4.  slf4j 日志
 5.  alibaba druid 数据库连接池
 6.  消息转换使用FastJson
+
+#### 前端
+1.  axios
+2.  vue
+3.  babel
+4.  element-ui
