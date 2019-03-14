@@ -1,6 +1,10 @@
 # springboot项目脚手架 ( Stpringboot Project Archetype )
 ## 项目名（Project Name）maven-common-springboot
 ### 项目中框架及插件选用（编码统一使用UTF-8）
+
+    由于maven会自动使用velocity, 会与一些组件库或插件库发生冲突， 所以讲lib了plugins
+    目录放到了 web-lib 目录中， 使用时需等生成项目后自行替换目录
+
 #### 后端
 1.  Mybatis
 2.  PageHelper
