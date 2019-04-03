@@ -23,14 +23,35 @@ package ${package}.config;
 @EnableTransactionManagement
 public class MasterDataSourceConfig {
 
-	@Value("${master.datasource.druid.url}")
-	private String url;
-	@Value("${master.datasource.druid.driverClassName}")
-	private String driverClassName;
-	@Value("${master.datasource.druid.username}")
-	private String username;
-	@Value("${master.datasource.druid.password}")
-	private String password;
+	@Bean
+	public ServletRegistrationBean statViewServlet() {
+		ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
+
+		servletRegistrationBean.addInitParameter("enabled", "true");
+		//白名单：
+		servletRegistrationBean.addInitParameter("allow", "127.0.0.1");
+		//IP黑名单 (存在共同时，deny优先于allow) : 如果满足deny的即提示:Sorry, you are not permitted to view this page.
+		servletRegistrationBean.addInitParameter("deny", "192.168.30.37");
+		//登录查看信息的账号密码.
+		servletRegistrationBean.addInitParameter("loginUsername", "druid");
+		servletRegistrationBean.addInitParameter("loginPassword", "druid");
+		//是否能够重置数据.
+		servletRegistrationBean.addInitParameter("resetEnable", "false");
+		return servletRegistrationBean;
+	}
+
+	@Bean
+	public FilterRegistrationBean filterRegistrationBean() {
+		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new WebStatFilter());
+		//添加过滤规则.
+		filterRegistrationBean.addUrlPatterns("/*");
+		//添加不需要忽略的格式信息.
+		filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
+		filterRegistrationBean.addInitParameter("enabled", "true");
+		filterRegistrationBean.addInitParameter("profile-enable", "true");
+		return filterRegistrationBean;
+	}
+
 
 	/**
 	 * Method Description: Created by whx
@@ -41,13 +62,9 @@ public class MasterDataSourceConfig {
 	 */
 	@Primary
 	@Bean(name = "masterDatasource")
+	@ConfigurationProperties("master.datasource.druid")
 	public DruidDataSource dataSource() {
-		DruidDataSource ds = new DruidDataSource();
-		ds.setUrl(url);
-		ds.setDriverClassName(driverClassName);
-		ds.setUsername(username);
-		ds.setPassword(password);
-		return ds;
+		return DruidDataSourceBuilder.create().build();
 	}
 
 	@Primary

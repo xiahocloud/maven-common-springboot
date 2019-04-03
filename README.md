@@ -21,7 +21,7 @@
 2.  PageHelper
 3.  Freemarker 模板引擎
 4.  slf4j 日志
-5.  alibaba druid 数据库连接池
+5.  alibaba druid 数据库连接池 （[localhost:10001/druid/index.html](localhost:10001/druid/index.html)）
 6.  消息转换使用FastJson
 
 #### 前端
