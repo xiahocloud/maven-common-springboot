@@ -18,7 +18,7 @@ public class ViewResult<T> {
 	/**
 	 * 返回数据
 	 **/
-	private T data;
+	private Object data;
 
 	private ViewResult() {
 
@@ -44,11 +44,30 @@ public class ViewResult<T> {
 		this.msg = msg;
 	}
 
-	public T getData() {
+	public Object getData() {
 		return data;
 	}
 
-	public void setData(T data) {
+	public void setData(Object data) {
 		this.data = data;
+	}
+
+	public ViewResult code(int code) {
+		this.code = code;
+		return this;
+	}
+
+	public ViewResult msg(String msg) {
+		this.msg = msg;
+		return this;
+	}
+
+	public ViewResult<T> data(Object data) {
+		if (data == null) {
+			this.data = "";
+		} else {
+			this.data = data;
+		}
+		return this;
 	}
 }
