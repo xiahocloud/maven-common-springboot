@@ -1,0 +1,55 @@
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${package}.mapper.DemoMapper">
+	<resultMap id="demoMap" type="Demo">
+		<result property="id" column="uuid" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result property="name" column="name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+	</resultMap>
+
+
+	<select
+			id="readById"
+			resultMap="demoMap"
+			flushCache="false"
+			useCache="true"
+			timeout="10000"
+			fetchSize="256"
+			statementType="PREPARED"
+			resultSetType="FORWARD_ONLY">
+		SELECT * from t_demo WHERE uuid = #{id}
+	</select>
+	<select id="list"
+	        resultMap="demoMap"
+	        flushCache="false"
+	        useCache="true"
+	        timeout="10000"
+	        fetchSize="256"
+	        statementType="PREPARED"
+	        resultSetType="FORWARD_ONLY">
+		SELECT * FROM t_demo
+	</select>
+	<update
+			id="update"
+			parameterType="Demo"
+			flushCache="true"
+			statementType="PREPARED"
+			timeout="20">
+
+	</update>
+	<insert
+			id="create"
+			flushCache="true"
+			statementType="PREPARED"
+			timeout="20">
+
+	</insert>
+
+	<delete
+			id="deleteById"
+			parameterType="Demo"
+			flushCache="true"
+			statementType="PREPARED"
+			timeout="20">
+	</delete>
+</mapper>
