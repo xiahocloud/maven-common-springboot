@@ -24,9 +24,3 @@
 5.  alibaba druid 数据库连接池 （[localhost:10001/druid/index.html](localhost:10001/druid/index.html)）
 6.  消息转换使用FastJson
 7.  easyexcel 表格导出插件
-
-#### 前端
-1.  axios
-2.  vue
-3.  babel
-4.  element-ui

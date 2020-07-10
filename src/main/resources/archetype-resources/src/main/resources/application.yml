@@ -1,12 +1,6 @@
 spring:
   profiles:
     active: dev
-  mail:
-    host: smtp.qq.com
-    username: 994915494@qq.com
-    password: ziohofuylceubfjh
-    default-encoding: UTF-8
-
-mail:
-    fromMail:
-        addr: 994915494@qq.com
+logging:
+  level:
+    org.springframework.boot.autoconfigure: ERROR
