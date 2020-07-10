@@ -8,6 +8,13 @@
 			</includes>
 		</fileSet>
 		<fileSet filtered="false" packaged="false">
+			<directory>bin</directory>
+			<includes>
+				<include>**/*.sh</include>
+				<include>**/*.bat</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false" packaged="false">
 			<directory>sql</directory>
 			<includes>
 				<include>**/*.sql</include>

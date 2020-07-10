@@ -6,7 +6,6 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import freemarker.template.TemplateException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -110,6 +109,7 @@ public class WebConfig implements WebMvcConfigurer {
 		return viewResolver;
 	}
 
+
 	/**
 	 * Method Description: Created by whx
 	 * 〈freemarker 视图解析器配置〉
@@ -195,6 +195,15 @@ public class WebConfig implements WebMvcConfigurer {
 
 	}
 
+	/**
+	 * Method Description: Created by whx
+	 * 〈配置跨域请求〉
+	 *
+	 * @param converters 转换器列表
+	 * @return void
+	 * @throws
+	 * @date 03/01/2019 10:15
+	 */
 	@Bean
 	public CorsFilter corsFilter() {
 		CorsConfiguration config = new CorsConfiguration();

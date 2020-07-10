@@ -1,5 +1,16 @@
 server:
   port: 10001
+  servlet:
+    context-path: /
+    multipart:
+      max-file-size: -1 #文件上传大小无限制
+  tomcat:
+    uri-encoding: UTF-8
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
 master:
   datasource:
     druid:
@@ -7,5 +18,6 @@ master:
       username: root
       password: root
       driverClassName: com.mysql.cj.jdbc.Driver
-      #max-active: 10
-      #initial-size: 10
+      max-active: 10
+      initial-size: 10
+
