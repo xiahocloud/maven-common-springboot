@@ -7,7 +7,7 @@
 				<include>**/*.jar</include>
 			</includes>
 		</fileSet>
-		<fileSet filtered="false" packaged="false">
+		<fileSet filtered="false" packaged="true">
 			<directory>bin</directory>
 			<includes>
 				<include>**/*.sh</include>
