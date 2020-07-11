@@ -27,7 +27,7 @@ import java.util.Map;
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-	private static final Logger LOGGER = LoggerFactory.getLogger(com.hnps.stockfamily.exception.GlobalExceptionHandler.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 	private static final String REQ_PARAMS = "request-params";
 
@@ -52,8 +52,8 @@ public class GlobalExceptionHandler {
 
 	}
 
-	@ExceptionHandler(value = com.hnps.stockfamily.exception.ServiceException.class)
-	public ViewResult defaultServiceExceptionHandler(com.hnps.stockfamily.exception.ServiceException se) {
+	@ExceptionHandler(value = ServiceException.class)
+	public ViewResult defaultServiceExceptionHandler(ServiceException se) {
 		LOGGER.error("业务层发生异常{}\n", se.getMessage(), se);
 		ViewResult vr = ViewResult.instance();
 		vr.code(HttpStatusEnum.INTERNAL_SERVER_ERROR.code())

@@ -28,8 +28,6 @@
 7.  easyexcel 表格导出插件
 ### 脚本
 **bin目录下提供了两个脚本**
-
-*需要修改一下 ${package} 和 ${artifactId} 为当前项目的对应内容。*
 1.  打包后 windows  下， 
 直接双击control.bat
 2.  linux -> control.sh
